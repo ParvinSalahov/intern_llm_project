@@ -133,7 +133,7 @@ def run_checkpoint_4_error_handling(user_message):
                 print("Maksimum cəhd sayına çatdıq. Xəta davam edir.")
 
 
-    import json
+import json
 import re
 
 # --- CHECKPOINT 5: ÇIXIŞ PARSİNG/VALİDASİYASI ---
