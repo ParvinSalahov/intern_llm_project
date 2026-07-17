@@ -67,6 +67,12 @@ Layihəyə `try-except` blokları və `retry` mexanizmi əlavə olunmuşdur:
 LLM-in cavablarını təmiz JSON formatına çevirmək üçün:
 - **Regex:** `re` kitabxanası vasitəsilə cavabın içindən JSON bloklarını (əgər varsa) tapıb çıxarır.
 - **Validasiya:** `json.loads` funksiyası ilə alınan mətnin valid JSON olub-olmadığı yoxlanılır. Əgər format səhvdirsə, proqram xəta tutur.
+
+## Token və Xərc Məlumatlılığı (Cost/Token Awareness)
+Layihədə hər bir API sorğusunun maliyyə və resurs xərclərini izləmək üçün token loqlama sistemi qurulmuşdur:
+- **`response.usage`:** API-dan gələn cavab strukturunun daxilindən `prompt_tokens`, `completion_tokens` və `total_tokens` göstəriciləri oxunaraq terminalda loqlanır.
+
+
 📂 Layihə Strukturunun Görünüşü
 intern_llm_project/
 │

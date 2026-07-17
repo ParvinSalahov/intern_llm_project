@@ -172,8 +172,40 @@ def run_checkpoint_5_json_parsing(user_message):
         print("Xəta: Model korrupsiya olunmuş (invalid) JSON qaytardı.")
     except Exception as e:
         print(f"Gözlənilməz xəta: {e}")
+# --- CHECKPOINT 6: TOKEN VƏ COST MƏLUMATLILIĞI ---
 
-    
+def run_checkpoint_6_token_usage(user_message):
+    try:
+        print("\n[Checkpoint 6] Sorğu göndərilir və token istifadəsi hesablanır...")
+        
+        response = client.chat.completions.create(
+            model="openrouter/free",
+            messages=[
+                {"role": "system", "content": "Sən qısa və konkret cavablar verən köməkçisən."},
+                {"role": "user", "content": user_message}
+            ]
+        )
+
+        # Token məlumatlarını API cavabından götürürük
+        usage = response.usage
+        prompt_tokens = usage.prompt_tokens      # Göndərdiyimiz sualın token sayı
+        completion_tokens = usage.completion_tokens  # Modelin verdiyi cavabın token sayı
+        total_tokens = usage.total_tokens        # Ümumi sərf olunan token
+
+        print("Modelin Cavabı:", response.choices[0].message.content)
+        print("\n --- TOKEN İSTİFADƏSİ LOGU ---")
+        print(f"🔹 Giriş (Prompt) Token Sayı: {prompt_tokens}")
+        print(f"🔹 Çıxış (Completion) Token Sayı: {completion_tokens}")
+        print(f"🔹 Ümumi (Total) Sərf Olunan Token: {total_tokens}")
+        
+        # Təxmini xərc hesablanması (Örnək olaraq pulsuz model istifadə edirik, 
+        # lakin ödənişli modellər üçün standart qiymətlərlə hasil edib xərci hesablamaq olar)
+        print("---------------------------------")
+
+    except Exception as e:
+        print(f"Xəta baş verdi: {e}")
+
+
 if __name__ == "__main__":
     print("=== TƏCRÜBƏ PROQRAMI - HƏFTƏ 1 ===")
     
@@ -194,4 +226,8 @@ if __name__ == "__main__":
     #run_checkpoint_4_error_handling("Salam, sistem işləyirmi?")
     
     #5. Hisse: Chechpoint 5 testi
-    run_checkpoint_5_json_parsing("Azərbaycanın paytaxtı haradır?")
+    #run_checkpoint_5_json_parsing("Azərbaycanın paytaxtı haradır?")
+
+    #6.Hisse Checkpoint 6 Testi
+    run_checkpoint_6_token_usage("Süni intellekt texnologiyası gələcəkdə nələri dəyişəcək? Qısa yaz.")
+    
