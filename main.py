@@ -98,7 +98,7 @@ def run_checkpoint_3_streaming_support(user_message):
 
     except Exception as e:
         print(f"\nXəta baş verdi: {e}")
-
+    
 
 if __name__ == "__main__":
     print("=== TƏCRÜBƏ PROQRAMI - HƏFTƏ 1 ===")
@@ -117,3 +117,38 @@ if __name__ == "__main__":
     # 3. Hissə: Checkpoint 3 testi (Streaming)
     test_message_3 = "Kuryer mənə çatmalı olan bağlamanı səhv ünvana aparıb, bu barədə dərhal rəhbərliyə məlumat verin!"
     run_checkpoint_3_streaming_support(test_message_3)
+import time  # Xəta olduqda gözləmə müddəti üçün
+
+# --- CHECKPOINT 4: XƏTA İDARƏETMƏSİ (RETRY LOGIC) ---
+def run_checkpoint_4_error_handling(user_message):
+    max_retries = 3
+    
+    for attempt in range(max_retries):
+        try:
+            print(f"\n[Checkpoint 4] Sorğu göndərilir (Cəhd: {attempt + 1})...")
+            
+            response = client.chat.completions.create(
+                model="openrouter/free",
+                messages=[
+                    {"role": "system", "content": "Sən köməkçi bir robotsan."},
+                    {"role": "user", "content": user_message}
+                ]
+            )
+            print("Cavab uğurla alındı!")
+            print(response.choices[0].message.content)
+            return  # Uğurlu oldu, funksiyadan çıxırıq
+
+        except Exception as e:
+            print(f"Xəta baş verdi: {e}")
+            
+            if attempt < max_retries - 1:
+                sleep_time = 2 ** attempt  # 1, 2, 4 saniyə gözləmə
+                print(f"Retry edilir... {sleep_time} saniyə gözləyirik.")
+                time.sleep(sleep_time)
+            else:
+                print("Maksimum cəhd sayına çatdıq. Xəta davam edir.")
+
+# main hissəsində test etmək üçün:
+if __name__ == "__main__":
+    # Test üçün xəta yaradacaq və ya real bir mesaj göndər
+    run_checkpoint_4_error_handling("Salam, necəsən?")

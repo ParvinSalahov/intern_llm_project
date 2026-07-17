@@ -57,6 +57,12 @@ Modelin Qaydalar və Few-shot Örnəklərə Uyğun Nəzakətli Cavabı (LLM Outp
 
 "Yaşadığınız bu xoşagəlməz vəziyyətə görə çox üzr istəyirik. Sifariş nömrənizi və məhsulun şəklini bizə təqdim edə bilərsinizmi? Dərhal geri qaytarma və ödəniş prosesini başladacağıq."
 
+## Xəta İdarəetməsi (Error Handling)
+
+Layihəyə `try-except` blokları və `retry` mexanizmi əlavə olunmuşdur:
+- **Rate Limit & Timeout:** API-dan gələn xətaları idarə etmək üçün "Exponential Backoff" (artan gecikməli təkrar sorğu) tətbiq olunmuşdur.
+- **Avtomatik Cəhd:** Kod xəta baş verdikdə avtomatik olaraq 3 dəfəyə qədər yenidən sorğu göndərir.
+
 📂 Layihə Strukturunun Görünüşü
 intern_llm_project/
 │
