@@ -100,23 +100,7 @@ def run_checkpoint_3_streaming_support(user_message):
         print(f"\nXəta baş verdi: {e}")
     
 
-if __name__ == "__main__":
-    print("=== TƏCRÜBƏ PROQRAMI - HƏFTƏ 1 ===")
-    
-    # 1. Hissə: Checkpoint 1 testi
-    # run_checkpoint_1_simple_test()
-    
-    # print("-" * 40)
-    
-    # 2. Hissə: Checkpoint 2 testi
-    # test_message = "Aldığım telefonun ekranı sınıq çıxdı! Pulumu dərhal geri istəyirəm, kömək edin!"
-    # run_checkpoint_2_customer_support(test_message)
-    
-    # print("-" * 40)
-    
-    # 3. Hissə: Checkpoint 3 testi (Streaming)
-    test_message_3 = "Kuryer mənə çatmalı olan bağlamanı səhv ünvana aparıb, bu barədə dərhal rəhbərliyə məlumat verin!"
-    run_checkpoint_3_streaming_support(test_message_3)
+
 import time  # Xəta olduqda gözləmə müddəti üçün
 
 # --- CHECKPOINT 4: XƏTA İDARƏETMƏSİ (RETRY LOGIC) ---
@@ -147,8 +131,21 @@ def run_checkpoint_4_error_handling(user_message):
                 time.sleep(sleep_time)
             else:
                 print("Maksimum cəhd sayına çatdıq. Xəta davam edir.")
-
-# main hissəsində test etmək üçün:
 if __name__ == "__main__":
-    # Test üçün xəta yaradacaq və ya real bir mesaj göndər
-    run_checkpoint_4_error_handling("Salam, necəsən?")
+    print("=== TƏCRÜBƏ PROQRAMI - HƏFTƏ 1 ===")
+    
+    # Hər hansı checkpoint-i test etmək üçün əvvəlindəki '#' işarəsini silə bilərsən
+    
+    # 1. Hissə: Checkpoint 1 testi
+    # run_checkpoint_1_simple_test()
+    
+    # 2. Hissə: Checkpoint 2 testi
+    # test_message = "Aldığım telefonun ekranı sınıq çıxdı! Pulumu dərhal geri istəyirəm, kömək edin!"
+    # run_checkpoint_2_customer_support(test_message)
+    
+    # 3. Hissə: Checkpoint 3 testi (Streaming) - İndi bunu komentə alırıq
+    # test_message_3 = "Kuryer mənə çatmalı olan bağlamanı səhv ünvana aparıb..."
+    # run_checkpoint_3_streaming_support(test_message_3)
+    
+    # 4. Hissə: Checkpoint 4 testi (Xəta idarəetməsi) - YALNIZ BU İŞLƏYƏCƏK
+    run_checkpoint_4_error_handling("Salam, sistem işləyirmi?")
