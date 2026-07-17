@@ -63,6 +63,10 @@ Layihəyə `try-except` blokları və `retry` mexanizmi əlavə olunmuşdur:
 - **Rate Limit & Timeout:** API-dan gələn xətaları idarə etmək üçün "Exponential Backoff" (artan gecikməli təkrar sorğu) tətbiq olunmuşdur.
 - **Avtomatik Cəhd:** Kod xəta baş verdikdə avtomatik olaraq 3 dəfəyə qədər yenidən sorğu göndərir.
 
+## Çıxış Parsing və Validasiya
+LLM-in cavablarını təmiz JSON formatına çevirmək üçün:
+- **Regex:** `re` kitabxanası vasitəsilə cavabın içindən JSON bloklarını (əgər varsa) tapıb çıxarır.
+- **Validasiya:** `json.loads` funksiyası ilə alınan mətnin valid JSON olub-olmadığı yoxlanılır. Əgər format səhvdirsə, proqram xəta tutur.
 📂 Layihə Strukturunun Görünüşü
 intern_llm_project/
 │

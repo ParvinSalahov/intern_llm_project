@@ -131,6 +131,49 @@ def run_checkpoint_4_error_handling(user_message):
                 time.sleep(sleep_time)
             else:
                 print("Maksimum cəhd sayına çatdıq. Xəta davam edir.")
+
+
+    import json
+import re
+
+# --- CHECKPOINT 5: ÇIXIŞ PARSİNG/VALİDASİYASI ---
+def run_checkpoint_5_json_parsing(user_message):
+    try:
+        print("\n[Checkpoint 5] JSON formatında cavab tələb olunur və təmizlənir...")
+        
+        # System prompt-da xüsusi tapşırıq veririk
+        messages = [
+            {"role": "system", "content": "Yalnız və yalnız JSON formatında cavab ver. Heç bir əlavə şərh yazma. Format: {\"cavab\": \"...\", \"status\": \"success\"}"},
+            {"role": "user", "content": user_message}
+        ]
+
+        response = client.chat.completions.create(
+            model="openrouter/free",
+            messages=messages
+        )
+        
+        raw_text = response.choices[0].message.content
+        print(f"Modelin xam cavabı: {raw_text}")
+
+        # Təmizləmə əməliyyatı:
+        # 1. Regex ilə ```json ... ``` bloklarını tapıb çıxarırıq
+        json_match = re.search(r'\{.*\}', raw_text, re.DOTALL)
+        
+        if json_match:
+            clean_json = json_match.group(0)
+            data = json.loads(clean_json) # JSON-u obyektə çeviririk
+            print("Uğurla təmizləndi və pars edildi:")
+            print(data)
+            print(f"Status: {data['status']}")
+        else:
+            print("Xəta: Cavabın içində JSON tapılmadı!")
+
+    except json.JSONDecodeError:
+        print("Xəta: Model korrupsiya olunmuş (invalid) JSON qaytardı.")
+    except Exception as e:
+        print(f"Gözlənilməz xəta: {e}")
+
+    
 if __name__ == "__main__":
     print("=== TƏCRÜBƏ PROQRAMI - HƏFTƏ 1 ===")
     
@@ -148,4 +191,7 @@ if __name__ == "__main__":
     # run_checkpoint_3_streaming_support(test_message_3)
     
     # 4. Hissə: Checkpoint 4 testi (Xəta idarəetməsi) - YALNIZ BU İŞLƏYƏCƏK
-    run_checkpoint_4_error_handling("Salam, sistem işləyirmi?")
+    #run_checkpoint_4_error_handling("Salam, sistem işləyirmi?")
+    
+    #5. Hisse: Chechpoint 5 testi
+    run_checkpoint_5_json_parsing("Azərbaycanın paytaxtı haradır?")
